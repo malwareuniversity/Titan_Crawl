@@ -1,0 +1,1 @@
+cat results/titan.txt | cut -f1 -d' ' | sort | uniq -c

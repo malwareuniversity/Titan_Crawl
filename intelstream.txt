@@ -1,0 +1,109 @@
+How to work the page (programatically):
+
+// How to click 10 more records.
+$('a[href="*"]').get(14).click()
+
+// Get all summaries on the page
+$('.listItem').each(function(index) {
+    console.log(index + ': ' + $(this).text());
+    debugger;
+
+    // this.href has the link to the main report
+    // this.innerText has the good stuff we need for a summary.
+});
+
+
+// Click to expand all stream items and crash your browser
+window.unlocked = true;
+debugger;
+while (true) {
+    try {
+        if (!window.unlocked) continue;
+        $('.pager').get(0).click();
+        const new_time = Math.floor(Math.random() * (2000 - 500 + 1)) + 500;
+        window.unlocked = false;
+        setTimeout(function(){ console.log('Expanding the element in ' + new_time + ' ms...'); window.unlocked = true;}, new_time);
+    } catch (err) {
+        break;
+    }
+}
+
+
+//
+// This will list all streams in time...
+//
+function expandList() {
+    try {
+        $('.pager').get(0).click();
+        const new_time = Math.floor(Math.random() * (2000 - 500 + 1)) + 500;
+        console.log('Waiting for ' + new_time + ' ms');
+        setTimeout(expandList, new_time);
+    } catch (err) {
+        console.log('Finished');
+        return;
+    }
+}
+
+
+//
+// Next, we want to "click" on each link, if not a "SPOT REPORT", grab all contents
+// and go "back".
+//
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getText() {
+    const text = $('.textBox').text();
+
+
+    return text;
+}
+
+//
+// This will get all Entities from the page.
+//
+async function getElements() {
+    let elements = '';
+    // Cannot use short arrow functions in jQuery.
+    $('dd').each( function(index) {
+        elements += $(this).text() + '\n';
+    });
+
+    return elements;
+}
+
+async function logReport(index, summary, link) {
+    $('.listItem').get(index).click();
+    await sleep(1000);
+    const text = await getText();
+    const entities = await getElements();
+
+    console.log(entities);
+    debugger;
+
+    await sleep(1000);
+    window.history.back();
+
+    return;
+}
+
+async function grabItem() {
+    // So apparently this is synchronous.
+    var items = $('.listItem');
+    for (var index = 0; index < items.length; index++) {
+        // this.href has the link to the main report
+        // this.innerText has the good stuff we need for a summary.
+        const summary = this.innerText;
+        const link_to_summary = this.href;
+
+        await logReport(index, summary, link_to_summary);
+        console.log('Finished');
+    }
+}
+
+// Click on a link
+// This will show the "Raw Text" and "Researcher Comments" (if any) of the post
+$('.textBox').text()
+
+window.history.back()

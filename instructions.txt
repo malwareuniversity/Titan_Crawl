@@ -1,0 +1,11 @@
+Start chrome
+Load the jQuery module in your browser (copy/paste into console):
+    https://code.jquery.com/jquery-3.4.1.slim.min.js
+Ensure you are on the forums page (Source -> Forums)
+Load the jQuery scraper in your browser (copy/paste into console):
+    crawl.js
+Click on the next page(s)
+Type "doStuff()" into the console and hit enter
+Saved file should be located at ~/.config/chromium/Default/File System/<latest folder with number>/p/<latest
+number>/<latest number>
+    # Monitor with 'inotifywait -m -r .' from within the directory.

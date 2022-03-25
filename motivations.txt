@@ -1,0 +1,3 @@
+CC = Cyber Crime
+HA = Hacktivism
+CE = Cyber Espionage
